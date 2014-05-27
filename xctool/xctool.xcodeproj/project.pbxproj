@@ -121,6 +121,8 @@
 		AAF334501806A48A00928A00 /* TestRunStateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF3344D1806A48A00928A00 /* TestRunStateTests.m */; };
 		AAF334521806A48A00928A00 /* OCUnitTestRunnerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF3344E1806A48A00928A00 /* OCUnitTestRunnerTests.m */; };
 		AAF334531806A4A400928A00 /* Options+Testing.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF3344A1806A47E00928A00 /* Options+Testing.m */; };
+		4BC2DF6117E0626C00CCD413 /* NSTaskArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC2DF6017E0626C00CCD413 /* NSTaskArgument.m */; };
+		4BC2DF6217E0626C00CCD413 /* NSTaskArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC2DF6017E0626C00CCD413 /* NSTaskArgument.m */; };
 		C9D5B9891733CC2100011C1F /* ArchiveAction.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D5B9881733CC2100011C1F /* ArchiveAction.m */; };
 		C9D5B98A1733CC2500011C1F /* ArchiveAction.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D5B9881733CC2100011C1F /* ArchiveAction.m */; };
 		CC229B0F1946396600E11C30 /* SimulatorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = CC229B0E1946396600E11C30 /* SimulatorUtils.m */; };
@@ -328,6 +330,8 @@
 		AAF3344A1806A47E00928A00 /* Options+Testing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Options+Testing.m"; sourceTree = "<group>"; };
 		AAF3344D1806A48A00928A00 /* TestRunStateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestRunStateTests.m; sourceTree = "<group>"; };
 		AAF3344E1806A48A00928A00 /* OCUnitTestRunnerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCUnitTestRunnerTests.m; sourceTree = "<group>"; };
+		4BC2DF5F17E0626C00CCD413 /* NSTaskArgument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTaskArgument.h; sourceTree = "<group>"; };
+		4BC2DF6017E0626C00CCD413 /* NSTaskArgument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTaskArgument.m; sourceTree = "<group>"; };
 		C9D5B9871733CC2100011C1F /* ArchiveAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArchiveAction.h; sourceTree = "<group>"; };
 		C9D5B9881733CC2100011C1F /* ArchiveAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArchiveAction.m; sourceTree = "<group>"; };
 		CC229B0D1946396600E11C30 /* SimulatorUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimulatorUtils.h; path = xctool/SimulatorWrapper/SimulatorUtils.h; sourceTree = "<group>"; };
@@ -527,6 +531,8 @@
 				283CCAD516C2F10A00F2E343 /* XCTool.m */,
 				28E9B97D16C2F1C600A52E4D /* XCToolUtil.h */,
 				28E9B97E16C2F1C600A52E4D /* XCToolUtil.m */,
+				4BC2DF5F17E0626C00CCD413 /* NSTaskArgument.h */,
+				4BC2DF6017E0626C00CCD413 /* NSTaskArgument.m */,
 			);
 			path = xctool;
 			sourceTree = "<group>";
@@ -928,6 +934,7 @@
 				AAC1E0BD18121071005A4FD5 /* OCUnitIOSLogicTestQueryRunner.m in Sources */,
 				40623EBE190EA61B004FB374 /* InstallAction.m in Sources */,
 				EEB31CF917C6D57B00CFB0E1 /* OCTestSuiteEventState.m in Sources */,
+				4BC2DF6117E0626C00CCD413 /* NSTaskArgument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1026,6 +1033,7 @@
 				EEB31CF417C6A21400CFB0E1 /* OCTestEventStateTests.m in Sources */,
 				EEB31CFA17C6D57B00CFB0E1 /* OCTestSuiteEventState.m in Sources */,
 				EEB31CFD17C6D5AB00CFB0E1 /* OCTestSuiteEventStateTests.m in Sources */,
+				4BC2DF6217E0626C00CCD413 /* NSTaskArgument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
