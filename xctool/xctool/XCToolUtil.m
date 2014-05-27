@@ -25,6 +25,7 @@
 #import "ReporterTask.h"
 #import "TaskUtil.h"
 #import "XcodeSubjectInfo.h"
+#import "NSTaskArgument.h"
 
 static NSString *__tempDirectoryForAction = nil;
 
@@ -303,7 +304,15 @@ BOOL RunXcodebuildAndFeedEventsToReporters(NSArray *arguments,
 {
   NSTask *task = [[NSTask alloc] init];
   [task setLaunchPath:[XcodeDeveloperDirPath() stringByAppendingPathComponent:@"usr/bin/xcodebuild"]];
-  [task setArguments:arguments];
+  
+  NSMutableArray *args = [[NSMutableArray alloc] init];
+  
+  for (NSString* currentString in arguments)
+  {
+    [args addObject:[NSTaskArgument taskArgumentWithString:currentString]];
+  }
+  
+  [task setArguments:args];
   NSMutableDictionary *environment =
     [NSMutableDictionary dictionaryWithDictionary:
      [[NSProcessInfo processInfo] environment]];
