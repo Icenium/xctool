@@ -52,6 +52,7 @@
 		3892D7541815A13400E68652 /* EventGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3892D74F1815A13400E68652 /* EventGenerator.m */; };
 		3892D7551815A13400E68652 /* EventGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3892D74F1815A13400E68652 /* EventGenerator.m */; };
 		3892D7561815A13400E68652 /* EventGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3892D74F1815A13400E68652 /* EventGenerator.m */; };
+		5A8F60341D06E0410055E7AC /* NSTaskArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F60331D06E0410055E7AC /* NSTaskArgument.m */; };
 		CC0743801BB9E9570075E407 /* XCToolUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = CC07437F1BB9E9570075E407 /* XCToolUtil.m */; };
 		CC0743811BB9E9570075E407 /* XCToolUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = CC07437F1BB9E9570075E407 /* XCToolUtil.m */; };
 		CC0743821BB9E9570075E407 /* XCToolUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = CC07437F1BB9E9570075E407 /* XCToolUtil.m */; };
@@ -247,6 +248,9 @@
 		28F48A56179750A600068E00 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3892D74E1815A13400E68652 /* EventGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventGenerator.h; path = ../Common/EventGenerator.h; sourceTree = "<group>"; };
 		3892D74F1815A13400E68652 /* EventGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventGenerator.m; path = ../Common/EventGenerator.m; sourceTree = "<group>"; };
+		5A8F60321D06E0410055E7AD /* NSTaskArgument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSTaskArgument.h; path = ../xctool/xctool/NSTaskArgument.h; sourceTree = "<group>"; };
+		5A8F60331D06E0410055E7AC /* NSTaskArgument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSTaskArgument.m; path = ../xctool/xctool/NSTaskArgument.m; sourceTree = "<group>"; };
+		5A8F60351D06E2050055E7AC /* NSTaskArgument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = NSTaskArgument.m; path = ../xctool/xctool/NSTaskArgument.m; sourceTree = "<group>"; };
 		CC07437E1BB9E9570075E407 /* XCToolUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCToolUtil.h; path = ../Common/XCToolUtil.h; sourceTree = "<group>"; };
 		CC07437F1BB9E9570075E407 /* XCToolUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCToolUtil.m; path = ../Common/XCToolUtil.m; sourceTree = "<group>"; };
 		CC0743891BB9E9FC0075E407 /* EventSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventSink.h; path = ../Common/EventSink.h; sourceTree = "<group>"; };
@@ -364,6 +368,7 @@
 		2893A93D17960CAD00EFBD28 = {
 			isa = PBXGroup;
 			children = (
+				5A8F60351D06E2050055E7AC /* NSTaskArgument.m */,
 				2893A96417960CFD00EFBD28 /* reporters.xcconfig */,
 				CC43C4711B79725500AEDFB5 /* reporters-tests.xcconfig */,
 				2893A97E179614D400EFBD28 /* Common */,
@@ -445,6 +450,8 @@
 		2893A97E179614D400EFBD28 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				5A8F60321D06E0410055E7AD /* NSTaskArgument.h */,
+				5A8F60331D06E0410055E7AC /* NSTaskArgument.m */,
 				3892D74E1815A13400E68652 /* EventGenerator.h */,
 				3892D74F1815A13400E68652 /* EventGenerator.m */,
 				CC0743891BB9E9FC0075E407 /* EventSink.h */,
@@ -763,6 +770,7 @@
 				28F489F817973B7100068E00 /* NSFileHandle+Print.m in Sources */,
 				3892D7501815A13400E68652 /* EventGenerator.m in Sources */,
 				28F489F917973B7100068E00 /* FakeFileHandle.m in Sources */,
+				5A8F60341D06E0410055E7AC /* NSTaskArgument.m in Sources */,
 				CC0743801BB9E9570075E407 /* XCToolUtil.m in Sources */,
 				28F48A0017973CF600068E00 /* Reporter+Testing.m in Sources */,
 				28F48A17179743C600068E00 /* PhabricatorReporter.m in Sources */,
@@ -785,6 +793,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC0743811BB9E9570075E407 /* XCToolUtil.m in Sources */,
+				5A8F60341D06E0410055E7AC /* NSTaskArgument.m in Sources */,
 				CC75C2AC1BB9DD7F004315B2 /* TaskUtil.m in Sources */,
 				EE61734817E284DD00F02C91 /* Reporter.m in Sources */,
 				CC07438D1BB9EB490075E407 /* XcodeBuildSettings.m in Sources */,
@@ -800,6 +809,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC0743821BB9E9570075E407 /* XCToolUtil.m in Sources */,
+				5A8F60341D06E0410055E7AC /* NSTaskArgument.m in Sources */,
 				CC75C2AD1BB9DD8B004315B2 /* TaskUtil.m in Sources */,
 				EE61734917E284DD00F02C91 /* Reporter.m in Sources */,
 				CC07438E1BB9EB490075E407 /* XcodeBuildSettings.m in Sources */,
@@ -815,6 +825,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC0743831BB9E9570075E407 /* XCToolUtil.m in Sources */,
+				5A8F60341D06E0410055E7AC /* NSTaskArgument.m in Sources */,
 				CC75C2AE1BB9DD8F004315B2 /* TaskUtil.m in Sources */,
 				EE61734A17E284DD00F02C91 /* Reporter.m in Sources */,
 				CC07438F1BB9EB490075E407 /* XcodeBuildSettings.m in Sources */,
@@ -830,6 +841,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC0743841BB9E9570075E407 /* XCToolUtil.m in Sources */,
+				5A8F60341D06E0410055E7AC /* NSTaskArgument.m in Sources */,
 				CC75C2AF1BB9DD93004315B2 /* TaskUtil.m in Sources */,
 				EE61734B17E284DD00F02C91 /* Reporter.m in Sources */,
 				CC0743901BB9EB490075E407 /* XcodeBuildSettings.m in Sources */,
@@ -845,6 +857,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC0743851BB9E9570075E407 /* XCToolUtil.m in Sources */,
+				5A8F60341D06E0410055E7AC /* NSTaskArgument.m in Sources */,
 				CC75C2B01BB9DD97004315B2 /* TaskUtil.m in Sources */,
 				EE61734C17E284DD00F02C91 /* Reporter.m in Sources */,
 				CC0743911BB9EB490075E407 /* XcodeBuildSettings.m in Sources */,
@@ -861,6 +874,7 @@
 			files = (
 				CC75C2B11BB9DD9B004315B2 /* TaskUtil.m in Sources */,
 				CC0743861BB9E9570075E407 /* XCToolUtil.m in Sources */,
+				5A8F60341D06E0410055E7AC /* NSTaskArgument.m in Sources */,
 				3892D7561815A13400E68652 /* EventGenerator.m in Sources */,
 				CC0743921BB9EB490075E407 /* XcodeBuildSettings.m in Sources */,
 				EE61734D17E284DD00F02C91 /* Reporter.m in Sources */,
@@ -874,6 +888,7 @@
 			files = (
 				CC75C2B21BB9DD9F004315B2 /* TaskUtil.m in Sources */,
 				CC0743871BB9E9570075E407 /* XCToolUtil.m in Sources */,
+				5A8F60341D06E0410055E7AC /* NSTaskArgument.m in Sources */,
 				CCC0AB0518EC931C004FD861 /* main.m in Sources */,
 				CC0743931BB9EB490075E407 /* XcodeBuildSettings.m in Sources */,
 				CCC0AB0218EC8C6A004FD861 /* UserNotificationsReporter.m in Sources */,
@@ -894,6 +909,7 @@
 				FD023B1F1959ADA800947C28 /* EventGenerator.m in Sources */,
 				FD023B2D1959ADFC00947C28 /* main.m in Sources */,
 				CC0743881BB9E9570075E407 /* XCToolUtil.m in Sources */,
+				5A8F60341D06E0410055E7AC /* NSTaskArgument.m in Sources */,
 				FD023B2F1959ADFC00947C28 /* TeamCityReporter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
