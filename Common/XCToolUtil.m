@@ -24,12 +24,12 @@
 #import "EventGenerator.h"
 #import "EventSink.h"
 #import "NSFileHandle+Print.h"
-#import "Options.h"
+//#import "Options.h"
 #import "ReporterEvents.h"
-#import "ReporterTask.h"
+//#import "ReporterTask.h"
 #import "TaskUtil.h"
 #import "XcodeBuildSettings.h"
-#import "XcodeSubjectInfo.h"
+//#import "XcodeSubjectInfo.h"
 #import "NSTaskArgument.h"
 
 static NSString *__tempDirectoryForAction = nil;
@@ -187,9 +187,9 @@ NSString *XcodeDeveloperDirPathViaForcedConcreteTask(BOOL forceConcreteTask)
   }
 }
 
-NSString *MakeTempFileWithPrefix(NSString *prefix)
+NSString *MakeTempFileInDirectoryWithPrefix(NSString *directory, NSString *prefix)
 {
-  const char *template = [[TemporaryDirectoryForAction() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.XXXXXXX", prefix]] UTF8String];
+  const char *template = [[directory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.XXXXXXX", prefix]] UTF8String];
 
   char tempPath[PATH_MAX] = {0};
   strcpy(tempPath, template);
@@ -198,7 +198,12 @@ NSString *MakeTempFileWithPrefix(NSString *prefix)
   NSCAssert(handle != -1, @"Failed to make temporary file name for template %s, error: %d", template, handle);
   close(handle);
 
-  return [NSString stringWithFormat:@"%s", tempPath];
+  return @(tempPath);
+}
+
+NSString *MakeTempFileWithPrefix(NSString *prefix)
+{
+  return MakeTempFileInDirectoryWithPrefix(TemporaryDirectoryForAction(), prefix);
 }
 
 /**
@@ -340,9 +345,14 @@ BOOL IsRunningOnCISystem()
 
 BOOL IsRunningUnderTest()
 {
-  NSString *processName = [[NSProcessInfo processInfo] processName];
-  return ([processName isEqualToString:@"xctest"] ||
-          [processName isEqualToString:@"xctest-x86_64"]);
+  static BOOL isRunningUnderTest;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    NSString *processName = [[NSProcessInfo processInfo] processName];
+    isRunningUnderTest = [processName isEqualToString:@"xctest"] ||
+                         [processName isEqualToString:@"xctest-x86_64"];
+  });
+  return isRunningUnderTest;
 }
 
 BOOL LaunchXcodebuildTaskAndFeedEventsToReporters(NSTask *task,
@@ -356,7 +366,11 @@ BOOL LaunchXcodebuildTaskAndFeedEventsToReporters(NSTask *task,
 
   LaunchTaskAndFeedOuputLinesToBlock(task,
                                      @"running xcodebuild",
-                                     ^(NSString *line){
+                                     ^(int fd, NSString *line) {
+    if (!line.length) {
+      return;
+    }
+
     NSError *error = nil;
     NSDictionary *event = [NSJSONSerialization JSONObjectWithData:[line dataUsingEncoding:NSUTF8StringEncoding]
                                                           options:0
@@ -727,6 +741,15 @@ NSString *OSXTestFrameworkDirectories()
   return [directories componentsJoinedByString:@":"];
 }
 
+NSString *TVOSTestFrameworkDirectories()
+{
+  NSArray *directories = @[
+    [XcodeDeveloperDirPath() stringByAppendingPathComponent:@"Library/Frameworks"],
+    [XcodeDeveloperDirPath() stringByAppendingPathComponent:@"Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator.sdk/System/Library/Frameworks"],
+  ];
+  return [directories componentsJoinedByString:@":"];
+}
+
 NSString *AllFrameworkAndLiraryPathsInBuildSettings(NSDictionary *buildSettings)
 {
   NSMutableSet *set = [NSMutableSet set];
@@ -757,6 +780,16 @@ NSMutableDictionary *OSXTestEnvironment(NSDictionary *buildSettings)
     @"DYLD_LIBRARY_PATH" : paths,
     @"DYLD_FALLBACK_FRAMEWORK_PATH" : OSXTestFrameworkDirectories(),
     @"NSUnbufferedIO" : @"YES",
+  } mutableCopy];
+}
+
+NSMutableDictionary *TVOSTestEnvironment(NSDictionary *buildSettings)
+{
+  NSString *paths = AllFrameworkAndLiraryPathsInBuildSettings(buildSettings);
+  return [@{
+    @"DYLD_FRAMEWORK_PATH" : paths,
+    @"DYLD_LIBRARY_PATH" : paths,
+    @"DYLD_FALLBACK_FRAMEWORK_PATH" : TVOSTestFrameworkDirectories(),
   } mutableCopy];
 }
 
@@ -924,7 +957,7 @@ NSString *TestHostPathForBuildSettings(NSDictionary *buildSettings)
 
 NSString *ProductBundlePathForBuildSettings(NSDictionary *buildSettings)
 {
-  NSString *builtProductsDir = buildSettings[Xcode_BUILT_PRODUCTS_DIR];
+  NSString *builtProductsDir = buildSettings[Xcode_TARGET_BUILD_DIR] ?: buildSettings[Xcode_BUILT_PRODUCTS_DIR];
   NSString *fullProductName = buildSettings[Xcode_FULL_PRODUCT_NAME];
   return [builtProductsDir stringByAppendingPathComponent:fullProductName];
 }

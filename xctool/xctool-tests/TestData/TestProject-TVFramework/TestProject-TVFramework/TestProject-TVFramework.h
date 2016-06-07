@@ -14,9 +14,14 @@
 // limitations under the License.
 //
 
-#ifndef otest_shim_otest_shim_h
-#define otest_shim_otest_shim_h
+#import <UIKit/UIKit.h>
 
-NSString *StripAnsi(NSString *inputString);
+//! Project version number for TestProject-TVFramework.
+FOUNDATION_EXPORT double TestProject_TVFrameworkVersionNumber;
 
-#endif
+//! Project version string for TestProject-TVFramework.
+FOUNDATION_EXPORT const unsigned char TestProject_TVFrameworkVersionString[];
+
+// In this header, you should import all the public headers of your framework using statements like #import <TestProject_TVFramework/PublicHeader.h>
+
+

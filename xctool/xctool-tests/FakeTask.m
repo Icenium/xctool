@@ -21,6 +21,9 @@
 
 #import "FakeTaskManager.h"
 
+static NSString * const kSIMCTL_OTEST_SHIM_STDOUT_FILE = @"SIMCTL_CHILD_OTEST_SHIM_STDOUT_FILE";
+static NSString * const kOTEST_SHIM_STDOUT_FILE = @"OTEST_SHIM_STDOUT_FILE";
+
 static void writeAll(int fildes, const void *buf, size_t nbyte) {
   while (nbyte > 0) {
     ssize_t written = write(fildes, buf, nbyte);
@@ -156,6 +159,17 @@ void __exit(int code);
     standardErrorIsAPipe = NO;
   }
 
+  NSString *otestShimStdoutFilePath = _environment[kOTEST_SHIM_STDOUT_FILE] ?: _environment[kSIMCTL_OTEST_SHIM_STDOUT_FILE];
+  if (otestShimStdoutFilePath) {
+    // we need to open for writing and close because on the other side
+    // there is blocking opening for read.
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+      int otestShimOutputWriteFD = -1;
+      otestShimOutputWriteFD = open([otestShimStdoutFilePath UTF8String], O_WRONLY);
+      close(otestShimOutputWriteFD);
+    });
+  }
+
   [self setIsRunning:YES];
 
   pid_t forkedPid = fork();
@@ -164,9 +178,11 @@ void __exit(int code);
   if (forkedPid == 0) {
     if (standardOutputWriteFd != -1) {
       writeAll(standardOutputWriteFd, pretendStandardOutputBytes, pretendStandardOutputLength);
+      close(standardOutputWriteFd);
     }
     if (standardErrorWriteFd != -1) {
       writeAll(standardErrorWriteFd, pretendStandardErrorBytes, pretendStandardErrorLength);
+      close(standardErrorWriteFd);
     }
 
     // call directly to interposed in otest-shim exit.

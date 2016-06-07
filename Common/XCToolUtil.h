@@ -16,6 +16,10 @@
 
 #import <Foundation/Foundation.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 NSDictionary *BuildSettingsFromOutput(NSString *output);
 NSString *XCToolLibPath(void);
 NSString *XCToolLibExecPath(void);
@@ -34,6 +38,7 @@ NSString *XcodeDeveloperDirPath(void);
  */
 NSString *XcodeDeveloperDirPathViaForcedConcreteTask(BOOL forceConcreteTask);
 
+NSString *MakeTempFileInDirectoryWithPrefix(NSString *directory, NSString *prefix);
 NSString *MakeTempFileWithPrefix(NSString *prefix);
 
 /**
@@ -212,6 +217,11 @@ NSMutableDictionary *IOSTestEnvironment(NSDictionary *buildSettings);
 NSMutableDictionary *OSXTestEnvironment(NSDictionary *buildSettings);
 
 /**
+ * Returns common environment required to query and run TV OS tests.
+ */
+NSMutableDictionary *TVOSTestEnvironment(NSDictionary *buildSettings);
+
+/**
  * Creates a temporary directory under NSTemporaryDirectory() using mkdtemp,
  * and returns the path.
  */
@@ -251,3 +261,9 @@ NSString *TestHostPathForBuildSettings(NSDictionary *buildSettings);
  * Returns product bundle path specified in build settings.
  */
 NSString *ProductBundlePathForBuildSettings(NSDictionary *buildSettings);
+
+
+#ifdef __cplusplus
+}
+#endif
+

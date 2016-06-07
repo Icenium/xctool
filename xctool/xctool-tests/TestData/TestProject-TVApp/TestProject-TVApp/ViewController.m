@@ -14,16 +14,22 @@
 // limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
+#import "ViewController.h"
 
-@interface LineReader : NSObject
+@interface ViewController ()
 
-@property (nonatomic, copy) void (^didReadLineBlock)(NSString *);
+@end
 
-- (instancetype)initWithFileHandle:(NSFileHandle *)fileHandle;
+@implementation ViewController
 
-- (void)startReading;
-- (void)stopReading;
-- (void)finishReadingToEndOfFile;
+- (void)viewDidLoad {
+  [super viewDidLoad];
+  // Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void)didReceiveMemoryWarning {
+  [super didReceiveMemoryWarning];
+  // Dispose of any resources that can be recreated.
+}
 
 @end

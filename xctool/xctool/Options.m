@@ -446,11 +446,9 @@
   }
 
   if (_resultBundlePath) {
-    BOOL isDirectory = NO;
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:_resultBundlePath isDirectory:&isDirectory];
-    if (!isDirectory) {
-      NSString *errorReason = fileExists ? @"must be a directory" : @"doesn't exist";
-      *errorMessage = [NSString stringWithFormat:@"Specified result bundle path %@: %@", errorReason, _resultBundlePath];
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:_resultBundlePath];
+    if (fileExists) {
+      *errorMessage = [NSString stringWithFormat:@"Specified result bundle path already exists: %@", _resultBundlePath];
       return NO;
     }
   }
@@ -563,9 +561,13 @@
     // sourcecode.c.objc for architecture i386
     //
     // Explicitly setting PLATFORM_NAME=iphonesimulator seems to fix it.
-    if (!_buildSettings[Xcode_PLATFORM_NAME] &&
-        [_sdk hasPrefix:@"iphonesimulator"]) {
-      _buildSettings[Xcode_PLATFORM_NAME] = @"iphonesimulator";
+    //
+    // This also works around a bug in Xcode 7.2, where it seems to not
+    // set the platform correctly when -sdk is provided. Setting the
+    // platform name manually works to correct the platform it picks.
+    if (!_buildSettings[Xcode_PLATFORM_NAME]) {
+      NSString *platformName = [[[_platformPath lastPathComponent] stringByDeletingPathExtension] lowercaseString];
+      _buildSettings[Xcode_PLATFORM_NAME] = platformName;
     }
   }
   return YES;
@@ -611,21 +613,12 @@
       }
     }
 
-    if (deviceOS) {
-      NSString *osVersion = [SimulatorInfo sdkVersionForOSVersion:deviceOS];
-      if (!osVersion) {
+    if (deviceOS && deviceName) {
+      if (![SimulatorInfo isSdkVersion:deviceOS supportedByDevice:deviceName]) {
         *errorMessage = [NSString stringWithFormat:
-                         @"'%@' isn't a valid iOS version. The valid iOS versions are: %@.",
-                         deviceOS, [SimulatorInfo availableSdkVersions]];
+                         @"Device with name '%@' doesn't support iOS version '%@'. The supported iOS versions are: %@.",
+                         deviceName, deviceOS, [SimulatorInfo sdksSupportedByDevice:deviceName]];
         return NO;
-      }
-      if (deviceName) {
-        if (![SimulatorInfo isSdkVersion:osVersion supportedByDevice:deviceName]) {
-          *errorMessage = [NSString stringWithFormat:
-                           @"Device with name '%@' doesn't support iOS version '%@'. The supported iOS versions are: %@.",
-                           deviceName, osVersion, [SimulatorInfo sdksSupportedByDevice:deviceName]];
-          return NO;
-        }
       }
     }
   }
